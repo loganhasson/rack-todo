@@ -1,0 +1,11 @@
+<html>
+<body>
+<h1>What people are saying about Flatiron School</h1>
+<ul>
+
+  <% twitter_search_results.statuses.each do |tweet| %>
+    <li><%= tweet.user.name %> says: <%= tweet.text %></li>
+  <% end %>
+</ul>
+</body>
+</html>

@@ -35,19 +35,12 @@ end
 
 class App
   def call(env)
-    html = "<h1>What people are saying about Flatiron School</h1>"
-    html << "<ul>"
+    html = File.read('tweets.erb')
+    template = ERB.new(html)
 
-    # So far we've created an HTML string. Now the fun part. 
-    # Let's search twitter.
     twitter_search_results = Twitter.search("flatironschool")
-    twitter_search_results.statuses.each do |tweet|
-      # So now we have these individual tweet objects, twitter statuses.
-      html << "<li>#{tweet.user.name} says: #{tweet.text}</li>"
-    end
-    html << "</ul>"
-
-    [200, {'Content-Type' => 'text/html'}, [html]]
+    
+    [200, {'Content-Type' => 'text/html'}, [template.result(binding)]]
   end
 end
 
